@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="POST" action="{% url 'profile' %}">
+    {% csrf_token %}
+
+    <input type="text" name="name" placeholder="Enter name" value="{{person.name}}">
+    <input type="text" name="email" placeholder="Enter email" value="{{person.email}}">
+    <!-- <input type="text" name="role" placeholder="Enter role" value="{{person.role}}"> -->
+
+    {% if request.session.role == 'dev' %}
+
+    <input type="checkbox" name="notification_settings" placeholder="Notifications" {% if person.notification_settings %}checked{% endif %}>
+    <input type="text" name="current_floor" placeholder="Enter current floor" value="{{person.current_floor}}">
+
+    {% endif %}
+
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

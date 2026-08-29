@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICMS</title>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/ice-cream">Ice Cream</a>
+        <a href="/profile">Profile</a>
+
+        {% if not request.session.user_token %}
+
+        <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+
+            <input type="text" name="token" placeholder="Enter token">
+            <input type="text" name="role" placeholder="Enter role">
+            <button type="submit">Submit</button>
+        </form>
+
+        {% else %}
+
+        <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+            <p>User: {{ request.session.user_token }}</p>
+            <button type="submit">Logout</button>
+        </form>
+
+        {% endif %}
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+    
+</body>
+</html>
